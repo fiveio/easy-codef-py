@@ -1,7 +1,7 @@
 import base64
 import requests
-import urllib
 import json
+from urllib import parse
 from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_v1_5 as PKCS1
 
@@ -44,7 +44,7 @@ def public_enc_rsa(public_key, data):
     cipher = PKCS1.new(key_pub)
     cipher_text = cipher.encrypt(data.encode())
 
-    encrypted_data = base64.b64encode(cipher_text)
+    encrypted_data = base64.b64encode(cipher_text).decode('utf-8')
 
     return encrypted_data
 
@@ -62,4 +62,12 @@ def request_codef_api(api_url, token, body):
                'Authorization': 'Bearer ' + token
     }
 
-    return requests.post(api_url, headers=headers, data=urllib.parse.quote(str(json.dumps(body))))
+    return requests.post(api_url, headers=headers, data=url_qoute(str(json.dumps(body))))
+
+
+def url_qoute(url):
+    return parse.quote(url)
+
+
+def url_unquote(quote_str):
+    return parse.unquote_plus(quote_str)

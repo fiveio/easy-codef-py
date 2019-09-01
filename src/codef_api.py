@@ -3,6 +3,7 @@ import requests
 import json
 import urllib
 import logging
+from codef_account import CodefAccount
 from app_utils import string_b64encode, request_codef_api
 from errors import TokenGenerateError
 
@@ -11,10 +12,12 @@ _GEN_TOKEN_URL = 'https://oauth.codef.io/oauth/token'
 _GET_ACCOUNT_LIST = 'https://api.codef.io/v1/kr/bank/p/account/account-list'
 _GET_CID_URL = 'https://api.codef.io/v1/account/create'
 
+
 class CodefApi(object):
-    def __init__(self, client_id, client_secret):
+    def __init__(self, public_key, client_id, client_secret):
         self.client_id = client_id
         self.client_secret = client_secret
+        self.account = CodefAccount(public_key)
 
     def get_token(self):
         response_oauth = gen_token(_GEN_TOKEN_URL, self.client_id, self.client_secret)
@@ -54,5 +57,4 @@ def gen_token(url, client_id, client_secret):
     logging.debug(response.text)
 
     return response
-
 

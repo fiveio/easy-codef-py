@@ -4,27 +4,27 @@ from app_utils import public_enc_rsa
 class CodefAccount(object):
     def __init__(self, public_key):
         self.public_key = public_key
-        self.account_body = {
-            'accountList': []
-        }
 
-    def get_account_body(self):
-        """
-        계정 생성에 필요한 body를 리턴한다
-        :return: request시 필요한 body
-        """
-        return self.account_body
+    def gen_account_body(self, **kwargs):
+        body = {}
+        if 'connected_id' in kwargs:
+            print(kwargs['connected_id'])
+            body['connectedId'] = kwargs['connected_id']
+        if 'account_list' in kwargs:
+            body['accountList'] = kwargs['account_list']
 
-    def append_account_info(self, business_type
-                                , organization_code
-                                , password
-                                , der_file
-                                , key_file
-                                , country_code='KR'
-                                , client_type='P'
-                                , login_type='0'):
+        return body
+
+    def gen_account_info(self, business_type
+                             , organization_code
+                             , password
+                             , der_file
+                             , key_file
+                             , country_code='KR'
+                             , client_type='P'
+                             , login_type='0'):
         """
-        connected_id를 발급받기 위한 정보를 추가한다
+        connected_id를 발급받기계정 추가 또는 수정시 필요한 account 데이터 생성
 
         :param business_type: 비지니스 코드
         :param organization_code: 기관 코드
@@ -35,7 +35,7 @@ class CodefAccount(object):
         :param client_type: 고객구분
         :param login_type: 로그인 타입
         """
-        self.account_body['accountList'].append({
+        return {
             'countryCode': business_type,
             'organization': organization_code,
             'password': public_enc_rsa(self.public_key, password),
@@ -44,6 +44,6 @@ class CodefAccount(object):
             'countryCode': country_code,
             'clientType': client_type,
             'login_type': login_type
-        })
+        }
 
 

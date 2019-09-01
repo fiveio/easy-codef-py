@@ -1,2 +1,5 @@
 .idea/
 __pycache__/
+
+npki/
+src/dev_config.py
