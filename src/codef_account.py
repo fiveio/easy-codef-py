@@ -36,14 +36,14 @@ class CodefAccount(object):
         :param login_type: 로그인 타입
         """
         return {
-            'countryCode': business_type,
+            'businessType': business_type,
             'organization': organization_code,
             'password': public_enc_rsa(self.public_key, password),
             'derFile': der_file,
             'keyFile': key_file,
             'countryCode': country_code,
             'clientType': client_type,
-            'login_type': login_type
+            'loginType': login_type
         }
 
 
