@@ -27,8 +27,9 @@ class CodefApi(object):
             api_token = text_dict['access_token']
             return api_token
         else:
-            # raise TokenGenerateError('토큰 발급에 실패했습니다.')
-            raise TokenGenerateError
+            print(response_oauth)
+            print(response_oauth.status_code)
+            raise TokenGenerateError('토큰 발급에 실패했습니다.')
 
     def request_api(self, api_url, token, body):
         """

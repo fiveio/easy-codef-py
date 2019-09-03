@@ -65,6 +65,13 @@ def request_codef_api(api_url, token, body):
     return requests.post(api_url, headers=headers, data=url_qoute(str(json.dumps(body))))
 
 
+def file_to_base64(file_path):
+    fp = open(file_path, "rb")
+    data = fp.read()
+    fp.close()
+    return base64.b64encode(data).decode('utf-8')
+
+
 def url_qoute(url):
     return parse.quote(url)
 
