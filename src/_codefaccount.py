@@ -1,7 +1,7 @@
 import json
 import logging
 import requests
-from app_utils import public_enc_rsa, request_codef_api, url_unquote, string_b64encode
+from apputil import public_enc_rsa, request_codef_api, url_unquote, string_b64encode
 from errors import ConnectedIdGenerateError, TokenGenerateError
 
 

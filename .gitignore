@@ -2,4 +2,4 @@
 __pycache__/
 
 npki/
-src/dev_config.py
+devconfig.py

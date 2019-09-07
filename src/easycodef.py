@@ -1,13 +1,12 @@
-import requests
 import json
-import logging
-from codef_account import CodefAccount
-from app_utils import string_b64encode, request_codef_api, url_unquote
-from errors import TokenGenerateError, UseApiError
+from _codefaccount import CodefAccount
+from apputil import request_codef_api, url_unquote
 
 
-class CodefApi(object):
-
+class EsayCodef(object):
+    """
+    CODEF API를 사용하기 위해 만들어 놓은 구현 클래스
+    """
     def __init__(self):
         self.account = CodefAccount()
         pass
@@ -26,4 +25,3 @@ class CodefApi(object):
         response_data = json.loads(quoted_text)
 
         return response_data, response.status_code
-
