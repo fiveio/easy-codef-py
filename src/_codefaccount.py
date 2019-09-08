@@ -28,15 +28,16 @@ class CodefAccount(object):
 
         return body
 
-    def gen_account_info(self, public_key
-                             , business_type
-                             , organization_code
-                             , password
-                             , der_file
-                             , key_file
-                             , country_code='KR'
-                             , client_type='P'
-                             , login_type='0'):
+    def gen_account_info(self,
+                         public_key,
+                         business_type,
+                         organization_code,
+                         password,
+                         der_file,
+                         key_file,
+                         country_code='KR',
+                         client_type='P',
+                         login_type='0'):
         """
         connected_id를 발급받기계정 추가 또는 수정시 필요한 account 데이터 생성
 

@@ -15,12 +15,12 @@ access_token = api.account.gen_access_token(client_id, client_secret)
 
 # api 요청을 위한 body 생성
 account_list = list()
-account_list.append(api.account.gen_account_info(public_key=public_key
-                                               , business_type='BK'
-                                               , organization_code='0004'
-                                               , password=''
-                                               , der_file=file_to_base64(der_file_path)
-                                               , key_file=file_to_base64(key_file_path)))
+account_list.append(api.account.gen_account_info(public_key=public_key,
+                                                 business_type='BK',
+                                                 organization_code='0004',
+                                                 password='',
+                                                 der_file=file_to_base64(der_file_path),
+                                                 key_file=file_to_base64(key_file_path)))
 body = api.account.gen_account_req_body(account_list=account_list)
 
 # connected_id 발급

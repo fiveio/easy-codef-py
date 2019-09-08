@@ -3,7 +3,7 @@ from _codefaccount import CodefAccount
 from apputil import request_codef_api, url_unquote
 
 
-class EsayCodef(object):
+class EasyCodef(object):
     """
     CODEF API를 사용하기 위해 만들어 놓은 구현 클래스
     """
