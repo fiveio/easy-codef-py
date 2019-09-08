@@ -2,12 +2,13 @@ import src
 from setuptools import setup, find_packages
 
 setup(
-    name='easy-codef',
-    version='0.0.1',
+    name=src.__title__,
+    version=src.__version__,
+    author=src.__author__,
+    author_email='dc7303@gmail.com',
     description='Easily develop codef api',
     long_description=open('README.md').read(),
-    author='margurt',
-    author_email='dc7303@gmail.com',
+    long_description_content_type="text/markdown",
     url='https://github.com/dc7303/easy-codef-py.git',
     packages=find_packages(),
     keywords=[
