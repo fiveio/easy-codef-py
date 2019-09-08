@@ -40,7 +40,7 @@ def public_enc_rsa(public_key, data):
     :return:
     """
     key_der = base64.b64decode(public_key)
-    key_pub = RSA.importKey(key_der)
+    key_pub = RSA.import_key(key_der)
     cipher = PKCS1.new(key_pub)
     cipher_text = cipher.encrypt(data.encode())
 

@@ -1,4 +1,4 @@
-from easycodef import EsayCodef
+from easycodef import EasyCodef
 from apputil import file_to_base64
 from devconfig import public_key, client_id, client_secret
 
@@ -8,7 +8,7 @@ from devconfig import public_key, client_id, client_secret
 # client_secret = ''
 der_file_path = '../npki/signCert.der'
 key_file_path = '../npki/signPri.key'
-api = EsayCodef()
+api = EasyCodef()
 
 # 토큰 생성
 access_token = api.account.gen_access_token(client_id, client_secret)
