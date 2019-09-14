@@ -23,16 +23,15 @@ account_list.append(api.account.gen_account_info(public_key=public_key,
                                                  key_file=file_to_base64(key_file_path)))
 body = api.account.gen_account_req_body(account_list=account_list)
 
+# connected_id 생성 요청
+codef_account_create_url = 'https://api.codef.io/v1/account/create'
 # connected_id 발급
-connected_id, response_data = api.account.gen_connected_id(access_token, body)
+response_data = api.account.req_account_api(codef_account_create_url, access_token, body)
 request_body = {
-    'connectedId': connected_id,
+    'connectedId': response_data['data']['connectedId'],
     'organization': '0004'
 }
 
 # 개인 보유계좌 조회 exam
-bank_api_url = 'https://tapi.codef.io/v2/kr/bank/p/account/account-list'
+bank_api_url = 'https://development.codef.io/v1/kr/bank/p/account/account-list'
 bank_data, status = api.use(bank_api_url, access_token, request_body)
-
-print(bank_data)
-print(status)

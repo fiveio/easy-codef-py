@@ -62,31 +62,33 @@ class CodefAccount(object):
             'loginType': login_type
         }
 
-    def gen_connected_id(self, access_token, body):
+    def req_account_api(self, url, access_token, body):
         """
-        connected id 생성 요청
+        CODEF account 관련 api 요청 메소드
 
+        ;param: url: account api url
         :param: access_token: user access_token
         :param: body: request body
                      gen_account_info와 gen_account_req_body 함수를 통해 생성할 수 있다.
-        :return: connected_id, response_data:
-                    connected_id: 유저 Connected Id
+        :return: response_data, response_data:
                     response_data: 파싱한 response body 데이터
+                    response_data:
         :raise: ConnectedIdGenerateError:
                     토큰 생성 실패 에러
         """
-        codef_account_create_url = 'https://api.codef.io/v1/account/create'
-        response = request_codef_api(codef_account_create_url, access_token, body)
+        response = request_codef_api(url, access_token, body)
 
         if response.status_code == 200:
             quoted_text = url_unquote(response.text)
             response_data = json.loads(quoted_text)
-            connected_id = response_data['data']['connectedId']
 
-            return connected_id, response_data
+            return response_data
         else:
-            message = f'\n response status = {response.status_code}\n Connected Id 발급이 실패했습니다.'
-            raise ConnectedIdGenerateError(message)
+            quoted_text = url_unquote(response.text)
+            print(quoted_text)
+            response_data = json.loads(quoted_text)
+            print('json', response_data)
+
 
     def gen_access_token(self, client_id, client_secret):
         """
