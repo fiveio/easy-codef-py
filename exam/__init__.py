@@ -1,0 +1,1 @@
+from .devconfig import public_key, client_id, client_secret

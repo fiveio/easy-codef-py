@@ -1,24 +1,25 @@
 import json
 import logging
 import requests
-from apputil import public_enc_rsa, request_codef_api, url_unquote, string_b64encode
-from errors import ConnectedIdGenerateError, TokenGenerateError
+from helper import public_enc_rsa, string_b64encode
+from errors import TokenGenerateError
 
 
 class CodefAccount(object):
     """
     CODEF Account 관련 요청을 핸들링 하기 위한 객체
-    CodefApi 객체에 필드값으로 셋팅된다.
+    EasyCodef의 필드 값으로 셋팅됨
     """
     def __init__(self):
         pass
 
-    def gen_account_req_body(self, **kwargs):
+    @classmethod
+    def gen_account_req_body(cls, **kwargs):
         """
-        account API 요청 바디 데이터 생성
+        account API 요청에 필요한 body 데이터 생성
 
-        :param kwargs: parameter
-        :return: parameter info dict
+        :param: kwargs: connected_id | account_list
+        :return: request body data
         """
         body = {}
         if 'connected_id' in kwargs:
@@ -28,7 +29,8 @@ class CodefAccount(object):
 
         return body
 
-    def gen_account_info(self,
+    @classmethod
+    def gen_account_info(cls,
                          public_key,
                          business_type,
                          organization_code,
@@ -41,12 +43,14 @@ class CodefAccount(object):
         """
         connected_id를 발급받기계정 추가 또는 수정시 필요한 account 데이터 생성
 
-        :param public_key: 유저 퍼블릭키
-        :param business_type: 비지니스 코드
-        :param organization_code: 기관 코드
-        :param password: 앤드유저의 인증서 비밀번호
-        :param der_file: 앤드유저의 인증서 DerFile
-        :param key_file: 앤드유저의 인증서 KeyFile
+        :param public_key: 유저 퍼블릭키.
+        :param business_type: 비지니스 코드.
+        :param organization_code: 기관 코드.
+        :param password: 앤드유저의 인증서 비밀번호. RSA 암호화 되어 셋팅됨.
+        :param der_file: 앤드유저의 인증서 DerFile. base64 encoding된 string 타입 데이터.
+                            helper의 file_to_base64활용을 권장함
+        :param key_file: 앤드유저의 인증서 KeyFile. base64 encoding된 string 타입 데이터.
+                            helper의 file_to_base64활용을 권장함
         :param country_code: 국가코드
         :param client_type: 고객구분
         :param login_type: 로그인 타입
@@ -62,7 +66,8 @@ class CodefAccount(object):
             'loginType': login_type
         }
 
-    def gen_access_token(self, client_id, client_secret):
+    @classmethod
+    def gen_access_token(cls, client_id, client_secret):
         """
         CODEF 사용을 위한 access_token 생성
 

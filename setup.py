@@ -1,24 +1,33 @@
+import ast
 from setuptools import setup, find_packages
 
-__title__ = 'easycodef'
-__version__ = '0.0.1'
-__author__ = 'mark(margurt)'
-__copyright__ = 'Copyright 2019 margurt'
 
-requires = None
+def get_metadata(resource):
+    filename = 'easycodef/__init__.py'
+    with open(filename, 'r') as f:
+        tree = ast.parse(f.read(), filename)
+    for node in tree.body:
+        if (isinstance(node, ast.Assign) and
+                node.targets[0].id == resource):
+            return ast.literal_eval(node.value)
+
+    raise ValueError(f'could not find {resource}')
+
+with open('README.md', 'r') as f:
+    long_description = f.read()
 with open('requirements.txt') as f:
-   requires = f.read().strip().split('\n')
+    requires = f.read().strip().split('\n')
 
 setup(
-    name=__title__,
-    version=__version__,
-    author=__author__,
+    name=get_metadata('__title__'),
+    version=get_metadata('__version__'),
+    author=get_metadata('__author__'),
     author_email='dc7303@gmail.com',
     description='Easily develop codef api',
-    long_description=open('README.md').read(),
+    long_description=long_description,
     long_description_content_type="text/markdown",
     url='https://github.com/dc7303/easy-codef-py.git',
-    packages=find_packages(),
+    packages=find_packages(exclude=['exam']),
     keywords=[
         'easy-codef',
         'codef',
@@ -30,12 +39,8 @@ setup(
     zip_safe=False,
     classifiers=[
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.2',
-        'Programming Language :: Python :: 3.3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
+        'License :: OSI Approved :: MIT License',
+        'Operating System :: OS Independent'
     ],
     install_requires=requires
 )

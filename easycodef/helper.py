@@ -37,7 +37,7 @@ def public_enc_rsa(public_key, data):
 
     :param public_key: CODEF 회원에게 제공되는 PublicKey
     :param data: 암호화할 데이터
-    :return:
+    :return: 암호화된 데이터
     """
     key_der = base64.b64decode(public_key)
     key_pub = RSA.import_key(key_der)
@@ -65,11 +65,24 @@ def request_codef_api(api_url, token, body):
     return requests.post(api_url, headers=headers, data=url_qoute(str(json.dumps(body))))
 
 
-def file_to_base64(file_path):
-    fp = open(file_path, "rb")
-    data = fp.read()
-    fp.close()
-    return base64.b64encode(data).decode('utf-8')
+def file_to_base64(**kwargs):
+    """
+    파일을 byte string을 base64 encoding한 string data로 변환.
+    \n
+    file_path | file_data 중 한개 이상 필수 파라미터 필요.
+
+    :param: kwargs: file_path | file_data
+                file_path: file path
+                file_data: file byte string
+    :return: 인코딩된 file string
+    """
+    if 'file_path' in kwargs:
+        fp = open(kwargs['file_path'], 'rb')
+        data = fp.read()
+        fp.close()
+        return base64.b64encode(data).decode('utf-8')
+    elif 'file_data' in kwargs:
+        return base64.b64encode(kwargs['file_data']).decode('utf-8')
 
 
 def url_qoute(url):

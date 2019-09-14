@@ -1,6 +1,6 @@
 import json
 from _codefaccount import CodefAccount
-from apputil import request_codef_api, url_unquote
+from helper import request_codef_api, url_unquote
 
 
 class EasyCodef(object):
@@ -8,7 +8,7 @@ class EasyCodef(object):
     CODEF API를 사용하기 위해 만들어 놓은 구현 클래스
     """
     def __init__(self):
-        self.account = CodefAccount()
+        self.account = CodefAccount
         pass
 
     def use(self, api_url, access_token, body):

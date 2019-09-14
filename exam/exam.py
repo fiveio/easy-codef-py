@@ -1,5 +1,5 @@
 from easycodef import EasyCodef
-from apputil import file_to_base64
+from helper import file_to_base64
 from devconfig import public_key, client_id, client_secret
 
 
@@ -19,8 +19,8 @@ account_list.append(api.account.gen_account_info(public_key=public_key,
                                                  business_type='BK',
                                                  organization_code='0004',
                                                  password='',
-                                                 der_file=file_to_base64(der_file_path),
-                                                 key_file=file_to_base64(key_file_path)))
+                                                 der_file=file_to_base64(file_path=der_file_path),
+                                                 key_file=file_to_base64(file_path=key_file_path)))
 body = api.account.gen_account_req_body(account_list=account_list)
 
 # connected_id 생성 요청
