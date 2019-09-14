@@ -5,3 +5,8 @@ npki/
 devconfig.py
 
 enviroment.yml
+
+
+build/
+dist/
+easycodef.egg-info/

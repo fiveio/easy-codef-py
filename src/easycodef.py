@@ -18,6 +18,8 @@ class EasyCodef(object):
         :param api_url: 요청 URL
         :param body: body data
         :return: response data, response status
+                response data: dict result
+                response status: response status
         """
         response = request_codef_api(api_url, access_token, body)
 

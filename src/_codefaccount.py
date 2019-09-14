@@ -62,34 +62,6 @@ class CodefAccount(object):
             'loginType': login_type
         }
 
-    def req_account_api(self, url, access_token, body):
-        """
-        CODEF account 관련 api 요청 메소드
-
-        ;param: url: account api url
-        :param: access_token: user access_token
-        :param: body: request body
-                     gen_account_info와 gen_account_req_body 함수를 통해 생성할 수 있다.
-        :return: response_data, response_data:
-                    response_data: 파싱한 response body 데이터
-                    response_data:
-        :raise: ConnectedIdGenerateError:
-                    토큰 생성 실패 에러
-        """
-        response = request_codef_api(url, access_token, body)
-
-        if response.status_code == 200:
-            quoted_text = url_unquote(response.text)
-            response_data = json.loads(quoted_text)
-
-            return response_data
-        else:
-            quoted_text = url_unquote(response.text)
-            print(quoted_text)
-            response_data = json.loads(quoted_text)
-            print('json', response_data)
-
-
     def gen_access_token(self, client_id, client_secret):
         """
         CODEF 사용을 위한 access_token 생성
@@ -100,7 +72,7 @@ class CodefAccount(object):
         :except: TokenGenerateError: 토큰 생성 실패
         """
         gen_token_url = 'https://oauth.codef.io/oauth/token'
-        response = request_gen_token(gen_token_url, client_id, client_secret)
+        response = _request_gen_token(gen_token_url, client_id, client_secret)
         if response.status_code == 200:
             text_dict = json.loads(response.text)
             # reissue_token
@@ -111,7 +83,7 @@ class CodefAccount(object):
             raise TokenGenerateError(message)
 
 
-def request_gen_token(url, client_id, client_secret):
+def _request_gen_token(url, client_id, client_secret):
     """
     토큰 생성 request 요청
 

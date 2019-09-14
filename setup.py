@@ -1,10 +1,18 @@
-import src
 from setuptools import setup, find_packages
 
+__title__ = 'easycodef'
+__version__ = '0.0.1'
+__author__ = 'mark(margurt)'
+__copyright__ = 'Copyright 2019 margurt'
+
+requires = None
+with open('requirements.txt') as f:
+   requires = f.read().strip().split('\n')
+
 setup(
-    name=src.__title__,
-    version=src.__version__,
-    author=src.__author__,
+    name=__title__,
+    version=__version__,
+    author=__author__,
     author_email='dc7303@gmail.com',
     description='Easily develop codef api',
     long_description=open('README.md').read(),
@@ -18,7 +26,16 @@ setup(
         'codef-py',
         'codef-python'
     ],
-    install_requires=[
-
-    ]
+    python_requires='>=3',
+    zip_safe=False,
+    classifiers=[
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.2',
+        'Programming Language :: Python :: 3.3',
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+    ],
+    install_requires=requires
 )
