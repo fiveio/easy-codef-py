@@ -1,6 +1,7 @@
 import json
 from _codefaccount import CodefAccount
 from helper import request_codef_api, url_unquote
+from typing import Tuple
 
 
 class EasyCodef(object):
@@ -11,13 +12,14 @@ class EasyCodef(object):
         self.account = CodefAccount
         pass
 
-    def use(self, api_url, access_token, body):
+    def use(self, api_url: str, access_token: str, body: dict) -> Tuple[dict, int]:
         """
         API 요청
 
         :param api_url: 요청 URL
-        :param body: body data
-        :return: response data, response status
+        :param access_token: access token
+        :param body: request body
+        :return: tuple[response data, response status]
                 response data: dict result
                 response status: response status
         """
@@ -25,5 +27,4 @@ class EasyCodef(object):
 
         quoted_text = url_unquote(response.text)
         response_data = json.loads(quoted_text)
-
         return response_data, response.status_code

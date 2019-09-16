@@ -34,6 +34,7 @@ request_body = {
 
 # 개인 보유계좌 조회 exam
 bank_api_url = 'https://development.codef.io/v1/kr/bank/p/account/account-list'
+
 bank_data, status = api.use(bank_api_url, access_token, request_body)
 print(f'status = {status}')
 print(bank_data)

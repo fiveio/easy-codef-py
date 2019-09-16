@@ -5,20 +5,19 @@ from urllib import parse
 from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_v1_5 as PKCS1
 
-def string_b64encode(text, enc_type):
+
+def string_b64encode(text: str, enc_type: str) -> str:
     """
     문자열을 base64 encoding
 
     :param text: 인코딩할 문자열
     :param enc_type: 문자 인코딩 타입
-    :return: 인코딩된 bytes
+    :return: base64로 인코딩된 문자열
     """
-    if type(text) is not str:
-       raise TypeError
-    return base64.b64encode(text.encode(enc_type))
+    return base64.b64encode(text.encode(enc_type)).decode('utf-8')
 
 
-def b64str_decode(b64str, dec_type):
+def b64str_decode(b64str: str, dec_type: str) -> str:
     """
     base64로 인코딩된 byte string을 decoding
 
@@ -26,12 +25,10 @@ def b64str_decode(b64str, dec_type):
     :param dec_type: 디코딩 타입
     :return: 디코딩된 문자열
     """
-    if type(b64str) != 'bytes':
-        raise TypeError
-    return base64.b64decode(b64str).decode(dec_type)
+    return base64.b64decode(b64str.encode('utf-8')).decode(dec_type)
 
 
-def public_enc_rsa(public_key, data):
+def public_enc_rsa(public_key: str, data: str) -> str:
     """
      RSA 암호화
 
@@ -49,7 +46,7 @@ def public_enc_rsa(public_key, data):
     return encrypted_data
 
 
-def request_codef_api(api_url, token, body):
+def request_codef_api(api_url: str, token: str, body: dict) -> requests.models.Response:
     """
     코드에프 API 요청 유틸
 
@@ -65,15 +62,15 @@ def request_codef_api(api_url, token, body):
     return requests.post(api_url, headers=headers, data=url_qoute(str(json.dumps(body))))
 
 
-def file_to_base64(**kwargs):
+def file_to_base64(**kwargs: any) -> str:
     """
     파일을 byte string을 base64 encoding한 string data로 변환.
     \n
     file_path | file_data 중 한개 이상 필수 파라미터 필요.
 
-    :param: kwargs: file_path | file_data
-                file_path: file path
-                file_data: file byte string
+    :param kwargs: file_path | file_data
+                file_path: str
+                file_data: bytes
     :return: 인코딩된 file string
     """
     if 'file_path' in kwargs:
@@ -85,9 +82,19 @@ def file_to_base64(**kwargs):
         return base64.b64encode(kwargs['file_data']).decode('utf-8')
 
 
-def url_qoute(url):
+def url_qoute(url: str) -> str:
+    """
+    urllib.parse.quote 사용
+    :param url: url string
+    :return:
+    """
     return parse.quote(url)
 
 
-def url_unquote(quote_str):
-    return parse.unquote_plus(quote_str)
+def url_unquote(quote_url: str) -> str:
+    """
+    urllib.parse.unqoute_plus 사용
+    :param quote_url: qoute url
+    :return:
+    """
+    return parse.unquote_plus(quote_url)

@@ -1,5 +1,4 @@
 import json
-import logging
 import requests
 from helper import public_enc_rsa, string_b64encode
 from errors import TokenGenerateError
@@ -14,11 +13,13 @@ class CodefAccount(object):
         pass
 
     @classmethod
-    def gen_account_req_body(cls, **kwargs):
+    def gen_account_req_body(cls, **kwargs: any) -> dict:
         """
         account API 요청에 필요한 body 데이터 생성
 
-        :param: kwargs: connected_id | account_list
+        :param kwargs: connected_id | account_list
+                connected_id: string
+                account_list: list
         :return: request body data
         """
         body = {}
@@ -31,15 +32,15 @@ class CodefAccount(object):
 
     @classmethod
     def gen_account_info(cls,
-                         public_key,
-                         business_type,
-                         organization_code,
-                         password,
-                         der_file,
-                         key_file,
-                         country_code='KR',
-                         client_type='P',
-                         login_type='0'):
+                         public_key: str,
+                         business_type: str,
+                         organization_code: str,
+                         password: str,
+                         der_file: str,
+                         key_file: str,
+                         country_code: str = 'KR',
+                         client_type: str = 'P',
+                         login_type: str = '0') -> dict:
         """
         connected_id를 발급받기계정 추가 또는 수정시 필요한 account 데이터 생성
 
@@ -67,14 +68,14 @@ class CodefAccount(object):
         }
 
     @classmethod
-    def gen_access_token(cls, client_id, client_secret):
+    def gen_access_token(cls, client_id: str, client_secret: str) -> str:
         """
         CODEF 사용을 위한 access_token 생성
 
-        :param: client_id: 사용자 client_id
-        :param: client_secret: 사용자 client_secret
+        :param client_id: 사용자 client_id
+        :param client_secret: 사용자 client_secret
         :return: access_token: CODEF API 사용을 위한 access_token
-        :except: TokenGenerateError: 토큰 생성 실패
+        :except TokenGenerateError: 토큰 생성 실패
         """
         gen_token_url = 'https://oauth.codef.io/oauth/token'
         response = _request_gen_token(gen_token_url, client_id, client_secret)
@@ -88,27 +89,20 @@ class CodefAccount(object):
             raise TokenGenerateError(message)
 
 
-def _request_gen_token(url, client_id, client_secret):
+def _request_gen_token(url: str, client_id: str, client_secret: str) -> requests.models.Response:
     """
     토큰 생성 request 요청
 
     :param url: token 생성 API url
     :param client_id: 사용자 client_id
     :param client_secret: 사용자 client_secret
-    :return:
+    :return: Response
     """
-    auth_header = string_b64encode(client_id + ':' + client_secret, 'utf-8').decode("utf-8")
-
+    auth_header = string_b64encode(client_id + ':' + client_secret, 'utf-8')
     headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded',
         'Authorization': 'Basic ' + auth_header
     }
 
-    response = requests.post(url, headers=headers, data='grant_type=client_credentials&scope=read')
-
-    logging.debug(response.status_code)
-    logging.debug(response.text)
-
-    return response
-
+    return requests.post(url, headers=headers, data='grant_type=client_credentials&scope=read')
