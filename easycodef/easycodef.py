@@ -1,7 +1,7 @@
 import json
-from _codefaccount import CodefAccount
-from helper import request_codef_api, url_unquote
 from typing import Tuple
+from ._codefaccount import CodefAccount
+from .helper import request_codef_api, url_unquote
 
 
 class EasyCodef(object):

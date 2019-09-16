@@ -1,8 +1,8 @@
 import json
 import requests
-from helper import public_enc_rsa, string_b64encode, file_to_base64
-from errors import TokenGenerateError
 from typing import Union
+from .helper import public_enc_rsa, string_b64encode, file_to_base64
+from .errors import TokenGenerateError
 
 
 class CodefAccount(object):
