@@ -40,13 +40,13 @@ gen_account_info의 파라미터 정보는 [여기](https://github.com/dc7303/ea
 확인하세요. 아래 예제 코드는 국민은행(개인) connected_id 생성 예제입니다.
 ```python
 account_list = list()
-accout_info = api.account.gen_account_info(business_type='BK',
+account_info = api.account.gen_account_info(business_type='BK',
                                            organization_code='0004',
                                            password='',
                                            public_key='',
                                            der_file='파일 경로 또는 bytes',
                                            key_file='파일 경로 또는 bytes')
-accout_info.append(accout_info)
+account_list.append(account_info)
 
 body = api.account.gen_account_req_body(account_list=account_list)
 ```
@@ -61,7 +61,7 @@ response_data, response_status_code = api.req_api(codef_account_create_url, acce
 ```python
 request_body = {
     'connectedId': response_data['data']['connectedId'],
-    # ...parameters
+    # ...parameters ( CODEF 개발 가이드 참고 )
 }
 api_url = 'https://development.codef.io/v1/kr/bank/p/account/account-list'
 

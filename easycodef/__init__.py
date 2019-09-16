@@ -1,4 +1,4 @@
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 __title__ = 'easycodef'
 __author__ = 'mark(margurt)'
 __copyright__ = 'Copyright 2019 margurt'
