@@ -4,7 +4,7 @@ import json
 from urllib import parse
 from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_v1_5 as PKCS1
-
+from typing import Union
 
 def string_b64encode(text: str, enc_type: str) -> str:
     """
@@ -34,7 +34,7 @@ def public_enc_rsa(public_key: str, data: str) -> str:
 
     :param public_key: CODEF 회원에게 제공되는 PublicKey
     :param data: 암호화할 데이터
-    :return: 암호화된 데이터
+    :return: RSA256 암호화된 데이터
     """
     key_der = base64.b64decode(public_key)
     key_pub = RSA.import_key(key_der)
@@ -62,7 +62,7 @@ def request_codef_api(api_url: str, token: str, body: dict) -> requests.models.R
     return requests.post(api_url, headers=headers, data=url_qoute(str(json.dumps(body))))
 
 
-def file_to_base64(**kwargs: any) -> str:
+def file_to_base64(**kwargs: Union[str, bytes]) -> str:
     """
     파일을 byte string을 base64 encoding한 string data로 변환.
     \n

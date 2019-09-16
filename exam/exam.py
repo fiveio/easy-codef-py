@@ -1,40 +1,43 @@
 from easycodef import EasyCodef
-from helper import file_to_base64
-from devconfig import public_key, client_id, client_secret
 
-
-# public_key = ''
-# client_id = ''
-# client_secret = ''
-der_file_path = '../npki/signCert.der'
-key_file_path = '../npki/signPri.key'
+# Easy Codef 생성
 api = EasyCodef()
+
+# codef에서 발급받은 client_id, client_secret
+client_id = ''
+client_secret = ''
+
+# 인증서 file 경로 또는 data(bytes)
+der_file = ''
+key_file = ''
 
 # 토큰 생성
 access_token = api.account.gen_access_token(client_id, client_secret)
 
 # api 요청을 위한 body 생성
 account_list = list()
-account_list.append(api.account.gen_account_info(public_key=public_key,
-                                                 business_type='BK',
-                                                 organization_code='0004',
-                                                 password='',
-                                                 der_file=file_to_base64(file_path=der_file_path),
-                                                 key_file=file_to_base64(file_path=key_file_path)))
+accout_info = api.account.gen_account_info(business_type='',
+                                           organization_code='',
+                                           password='',
+                                           public_key='',
+                                           der_file=der_file,
+                                           key_file=key_file)
+account_list.append(accout_info)
 body = api.account.gen_account_req_body(account_list=account_list)
 
 # connected_id 생성 요청
 codef_account_create_url = 'https://api.codef.io/v1/account/create'
+
 # connected_id 발급
-response_data, response_status_code = api.use(codef_account_create_url, access_token, body)
+response_data, response_status_code = api.req_api(codef_account_create_url, access_token, body)
+
 request_body = {
     'connectedId': response_data['data']['connectedId'],
-    'organization': '0004'
+    # ...
 }
 
 # 개인 보유계좌 조회 exam
-bank_api_url = 'https://development.codef.io/v1/kr/bank/p/account/account-list'
+api_url = 'https://development.codef.io/v1/kr/bank/p/account/account-list'
 
-bank_data, status = api.use(bank_api_url, access_token, request_body)
-print(f'status = {status}')
-print(bank_data)
+bank_data, status = api.req_api(api_url, access_token, request_body)
+

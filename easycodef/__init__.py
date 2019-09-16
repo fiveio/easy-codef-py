@@ -9,9 +9,5 @@ from . import helper
 __all__ = [
     'EasyCodef',
     'helper',
-    '__title__',
-    '__author__',
-    '__version__',
-    '__copyright__',
 ]
 

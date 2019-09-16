@@ -12,7 +12,7 @@ class EasyCodef(object):
         self.account = CodefAccount
         pass
 
-    def use(self, api_url: str, access_token: str, body: dict) -> Tuple[dict, int]:
+    def req_api(cls, api_url: str, access_token: str, body: dict) -> Tuple[dict, int]:
         """
         API 요청
 
