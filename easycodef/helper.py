@@ -6,6 +6,7 @@ from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_v1_5 as PKCS1
 from typing import Union
 
+
 def string_b64encode(text: str, enc_type: str) -> str:
     """
     문자열을 base64 encoding

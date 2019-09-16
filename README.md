@@ -1,4 +1,8 @@
 # Easy Codef
+[![license badge](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/dc7303/easy-codef-py/blob/master/LICENSE)
+[![language badge](https://img.shields.io/badge/language-Python-blue.svg)](https://python.org)
+[![contributing badge](https://img.shields.io/badge/contributing-welcome-red.svg)](https://github.com/dc7303/easy-codef-py/issues)
+
 [CODEF API](https://codef.io)를 통해 테스트 및 개발할 때 개발자가 인코딩, 암호화 등 API 요청에 필요한 전처리 작업을
 최소화하는 것, 그리고 누구나 쉽게 개발할 수 있는 것을 지향합니다.
 
