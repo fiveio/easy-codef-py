@@ -37,7 +37,7 @@ API 사용을 위한 엔드 유저의 계정 관련 요청에 필요한 request 
 요청별 필요한 데이터 정보 또는 응답 정보는 [CODEF Dev Guide](https://developer.codef.io/docs/cert/account/create)에서 확인하세요.
 
 gen_account_info의 파라미터 정보는 [여기](https://github.com/dc7303/easy-codef-py/blob/master/easycodef/_codefaccount.py#L40)에서
-확인하세요. 아래 예제 코드는 국민은행 connected_id 생성 예제입니다.
+확인하세요. 아래 예제 코드는 국민은행(개인) connected_id 생성 예제입니다.
 ```python
 account_list = list()
 accout_info = api.account.gen_account_info(business_type='BK',
@@ -50,7 +50,7 @@ accout_info.append(accout_info)
 
 body = api.account.gen_account_req_body(account_list=account_list)
 ```
-easycodef에서 모든 API 요청은 req_api를 사용합니다.
+easycodef에서 모든 API 요청은 [req_api](https://github.com/dc7303/easy-codef-py/blob/master/easycodef/easycodef.py#L15)를 사용합니다.
 ```python
 codef_account_create_url = 'https://api.codef.io/v1/account/create'
 

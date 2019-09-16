@@ -13,8 +13,11 @@ def get_metadata(resource):
 
     raise ValueError(f'could not find {resource}')
 
-with open('README.md', 'r') as f:
+
+with open('README.md', 'r', encoding='utf-8') as f:
     long_description = f.read()
+
+
 with open('requirements.txt') as f:
     requires = f.read().strip().split('\n')
 
